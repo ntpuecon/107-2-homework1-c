@@ -9,7 +9,7 @@ output:
       collapsed: true
       smooth_scroll: false
 params:
-  name: ["黃塏雯","阿明"]
+  name: ["黃塏雯","明"]
   id: [710761122,710661002]
   group: "team1"
   url: ""
