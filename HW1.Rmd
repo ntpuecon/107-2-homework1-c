@@ -82,15 +82,21 @@ hw1Data <- read_csv("https://raw.githubusercontent.com/tpemartin/github-data/mas
   * **可修個體**：「學生在大一結束後有達到可修個經門檻」其值為1的dummy variable。
 
 請進行OLS估計前述的簡單迴歸模型。（注意估計式標準誤必需使用穩健標準誤robust standard error，即使用三明治及HC調整後的標準誤。）
+```{r}
 
+```
 ```{r ans13}
+
 ```
 
 ## 1.4 選擇性偏誤
 上題的估計結果很可能不正確，請說明原因故事（非數學證明）。
 
+
+
+
 ## 1.5 選擇性偏誤
-這個資料還包含**經原PR**變數，它是學生最後修過的經原成績在該經原班的排名。說明有必要控制**經原PR**的理由（非數學證明）。
+
 
 
 ## 1.6 複迴歸模型
@@ -99,6 +105,7 @@ $$個經PR_i=\beta_0+\beta_1 可修個體_i+經原PR_i+\epsilon_i.$$
 （注意估計式標準誤必需使用穩健標準誤robust standard error，即使用三明治及HC調整後的標準誤。）
 
 ```{r ans16}
+
 ```
 
 
@@ -106,15 +113,17 @@ $$個經PR_i=\beta_0+\beta_1 可修個體_i+經原PR_i+\epsilon_i.$$
 請計算**可修個體**為1與0兩群人的**經原PR平均**及**個經PR平均**。（hint: 可利用dplyr套件下的`group_by()`,`summarise()`，及`mean( ,na.rm=T)`, na.rm=T表示計算時排除NA值） 
 
 ```{r ans17}
+
+
 ```
 
 
 ## 1.8 偏誤方向
 
 請填入以下空格完成完整偏誤論述：  
-有控制**經原PR**時，擋修會使得**個經PR** (1)____(上升/下降) (2)____百分點，其值比未控制**經原PR**時還 (3)____(高/低)；這表示忽略**經原PR**會對效應係數估計產生 (4)____(正向偏誤(upward bias)/負向偏誤(downward bias))。之所以會有上述的偏誤方向來自於兩個因素：
+有控制**經原PR**時，擋修會使得**個經PR** (1)___(上升/下降) (2)____百分點，其值比未控制**經原PR**時還 (3)___(高/低)；這表示忽略**經原PR**會對效應係數估計產生 (4)(正向偏誤(upward bias)/負向偏誤(downward bias))。之所以會有上述的偏誤方向來自於兩個因素：
 
-  1. **經原PR**與**個經PR**有(5)____(正向/反向)關連
+  1. **經原PR**與**個經PR**有(5)(正向/反向)關連
   2. **可修個體**=1的族群，其**經原PR**平均較(6)____(高/低)
   
 故若不控制**經原PR**，因**可修個體**=1與=0兩群人也會分別帶有 **經原PR**  (7)____(高與低/低與高)特質，所以**可修個體**=1的人其**個經PR**高，有部份是因其**經原PR**也較(8)____(高/低)所至。
@@ -122,6 +131,8 @@ $$個經PR_i=\beta_0+\beta_1 可修個體_i+經原PR_i+\epsilon_i.$$
 ## 1.9 (Optional, 可不寫)
 
 從前面的論述你發現什麼？背後的效應反映出什麼課程結構或學生學習問題？你會怎麼延伸研究下去。
+
+
 
 # 2 理論
 
@@ -145,6 +156,28 @@ $$\hat{\beta}_1=\bar{y}_1-\bar{y}_0,$$
   $$\sum_i w_i=\sum_{i,x_i=1} w_i +\sum_{i,x_i=0} w_i$$
   
   * $\bar{x}=n_1/n$, 其中$n=n_0+n_1$。
+
+&nbsp;
+
+\begin{aligned}
+&y_i=\beta_0+\beta_1x_i+\epsilon_i\\
+\\
+&\bar{y_1}=\frac{\sum_iy_i}{n_1}=\frac{\sum_ix_iy_i}{\sum_ix_i},\,\bar{y_0}=\frac{\sum_iy_i}{n_0}=\frac{\sum_i(1-x_i)y_i}{\sum_i(1-x_i)}\\
+\\
+&\hat{\beta_1}=\frac{\sum_i(x_i-\bar{x})(y_i-\bar{y})}{\sum_i(x_i-\bar{x})^2}\\
+\\
+&\sum_i(x_i-\bar{x})^2=\sum_ix_i^2-\bar{x}^2,\,\sum_ix_i^2=\sum_ix_i\\
+\\
+&\bar{x}=\frac{\sum_ix_i}{n}=\frac{n_1}{n_0+n_1}\\
+\\
+&\sum_i(x_i-\bar{x})^2=n_1-(n_0+n_1)\frac{n_1^2}{(n_0+n_1)^2}=\frac{n_0n_1}{n_0+n_1}\\
+\\
+&\sum_i(x_i-\bar{x})(y_i-\bar{y})=\sum_i(x_i-\bar{x})y_i=\sum_ix_iy_i-\sum_i\bar{x}y_i=n_1\bar{y_1}-\frac{n_1}{n_0+n_1}(n_1\bar{y_1}+n_0\bar{y_0})\\
+&\hspace{4cm}=\frac{1}{n_0+n_1}[(n_0+n_1)n_1\bar{y_1}-n_1(n_1\bar{y_1}+n_0\bar{y_0})]=\frac{n_0n_1}{n_0+n_1}(\bar{y_1}-\bar{y_0})\\
+\\
+&\hat{\beta_1}=\frac{\frac{n_0n_1}{n_0+n_1}(\bar{y_1}-\bar{y_0})}{\frac{n_0n_1}{n_0+n_1}}=\bar{y_1}-\bar{y_0}
+\end{aligned}
+
 
 
 ## 2.2
